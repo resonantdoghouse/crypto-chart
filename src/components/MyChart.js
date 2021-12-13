@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import {
@@ -35,8 +35,6 @@ const MyChart = () => {
     },
   };
 
-  // ref
-  const chartRef = useRef(null);
   // state
   const [data, setData] = useState([]);
   const [dateLabels, setDateLabels] = useState([]);
@@ -46,10 +44,10 @@ const MyChart = () => {
   // useEffect functions
   useEffect(() => {
     getCoinData();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    console.log('coin data', data);
     const tmpDateLabels = [];
     data[0] &&
       data[0].data.forEach((label, index) => {
@@ -57,10 +55,6 @@ const MyChart = () => {
       });
     setDateLabels(tmpDateLabels);
   }, [data]);
-
-  useEffect(() => {
-    getCoinData();
-  }, [coin, days]);
 
   // functions
   const getCoinData = () => {
@@ -74,7 +68,6 @@ const MyChart = () => {
           label: 'coin value',
           data: response.data.prices,
         };
-
         setData([dataObj]);
       })
       .catch((err) => console.log(err));
@@ -84,9 +77,16 @@ const MyChart = () => {
     setCoin(e.target.value);
   };
 
+  useEffect(() => {
+    getCoinData();
+    // eslint-disable-next-line
+  }, [coin, days]);
+
   const handleDaysChange = (daysVal) => {
     console.log('days change', daysVal);
     setDays(daysVal);
+
+    getCoinData();
   };
 
   return (

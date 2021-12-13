@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import MyChart from './components/MyChart';
 import './App.css';
 
