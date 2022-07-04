@@ -113,6 +113,13 @@ const MyChart = () => {
       >
         1 Year
       </button>
+      <button
+        onClick={() => {
+          handleDaysChange(730);
+        }}
+      >
+        2 Years
+      </button>
       <Line
         options={options}
         datasetIdKey="id"
